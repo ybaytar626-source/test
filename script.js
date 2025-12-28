@@ -1,39 +1,47 @@
-const evetBtn = document.getElementById('evetBtn');
 const hayirBtn = document.getElementById('hayirBtn');
-const soruMetni = document.getElementById('soru');
-const anaEkran = document.getElementById('ana-ekran');
-const sonucEkran = document.getElementById('sonuc-ekran');
+const evetBtn = document.getElementById('evetBtn');
+const soru = document.getElementById('soru');
+const container = document.getElementById('main-container');
 
-let evetBoyutu = 1;
-const mesajlar = ["Emin misin?", "Gerçekten mi?", "Beni seviyorsan bas!", "Son şansın!", "Ağlayacağım ama..."];
+// Videodaki gibi kaçarken değişecek yazılar
+const mesajlar = [
+    "Sevdiğini itiraf et! 🤫",
+    "Ağlayacağım ama! 😭",
+    "Son şansın!",
+    "Biliyorum seviyorsun!",
+    "Hala mı hayır?",
+    "Emin misin?",
+    "Gerçekten mi?",
+    "Beni seviyorsun!"
+];
 
-// Hayır butonuna tıklandığında (veya üzerine gelindiğinde) kaçma mantığı
+let mesajIndex = 0;
+
+// Hayır butonunun kaçma ve yazı değiştirme mantığı
 hayirBtn.addEventListener('mouseover', () => {
-    // Rastgele konum hesapla
+    // 1. Rastgele pozisyon
     const x = Math.random() * (window.innerWidth - hayirBtn.clientWidth);
     const y = Math.random() * (window.innerHeight - hayirBtn.clientHeight);
     
-    hayirBtn.style.position = 'fixed';
-    hayirBtn.style.left = x + 'px';
-    hayirBtn.style.top = y + 'px';
+    hayirBtn.style.left = `${x}px`;
+    hayirBtn.style.top = `${y}px`;
 
-    // Evet butonunu büyüt
-    evetBoyutu += 0.5;
-    evetBtn.style.transform = scale(${evetBoyutu});
-    
-    // Rastgele mesaj değiştir
-    const rastgeleMesaj = mesajlar[Math.floor(Math.random() * mesajlar.length)];
-    hayirBtn.innerText = rastgeleMesaj;
+    // 2. Yazıyı değiştir
+    hayirBtn.innerText = mesajlar[mesajIndex];
+    mesajIndex = (mesajIndex + 1) % mesajlar.length;
 });
 
-// Evet butonuna basıldığında
+// Evet butonuna basıldığında (Final Sahnesi)
 evetBtn.addEventListener('click', () => {
-    evetBtn.classList.add('full-screen');
-    evetBtn.innerText = "EVET! 💖";
+    // Tüm ekranı pembe kaplayan yeni bir div oluştur
+    const finalOverlay = document.createElement('div');
+    finalOverlay.className = 'final-screen';
     
-    setTimeout(() => {
-        anaEkran.classList.add('gizli');
-        sonucEkran.classList.remove('gizli');
-        evetBtn.classList.remove('full-screen');
-    }, 1000);
+    finalOverlay.innerHTML = `
+        <h1 style="font-size: 5rem; margin: 0;">EVET! 💜✨</h1>
+        <p style="font-size: 1.5rem; margin-top: 20px;">Ben de seni seviyorum! 🥰</p>
+        <p style="font-size: 1rem; opacity: 0.8;">Bunu biliyordum!</p>
+    `;
+    
+    document.body.appendChild(finalOverlay);
 });
