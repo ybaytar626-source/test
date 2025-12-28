@@ -1,33 +1,39 @@
-const hayirBtn = document.getElementById('hayirBtn');
 const evetBtn = document.getElementById('evetBtn');
-const soru = document.getElementById('soru');
-const container = document.querySelector('.container');
+const hayirBtn = document.getElementById('hayirBtn');
+const soruMetni = document.getElementById('soru');
+const anaEkran = document.getElementById('ana-ekran');
+const sonucEkran = document.getElementById('sonuc-ekran');
 
-// Hayır butonunun kaçma mekanizması
+let evetBoyutu = 1;
+const mesajlar = ["Emin misin?", "Gerçekten mi?", "Beni seviyorsan bas!", "Son şansın!", "Ağlayacağım ama..."];
+
+// Hayır butonuna tıklandığında (veya üzerine gelindiğinde) kaçma mantığı
 hayirBtn.addEventListener('mouseover', () => {
+    // Rastgele konum hesapla
     const x = Math.random() * (window.innerWidth - hayirBtn.clientWidth);
     const y = Math.random() * (window.innerHeight - hayirBtn.clientHeight);
+    
+    hayirBtn.style.position = 'fixed';
     hayirBtn.style.left = x + 'px';
     hayirBtn.style.top = y + 'px';
+
+    // Evet butonunu büyüt
+    evetBoyutu += 0.5;
+    evetBtn.style.transform = scale(${evetBoyutu});
+    
+    // Rastgele mesaj değiştir
+    const rastgeleMesaj = mesajlar[Math.floor(Math.random() * mesajlar.length)];
+    hayirBtn.innerText = rastgeleMesaj;
 });
 
-// Evet butonuna basıldığında videodaki o final sahnesini yapan kısım:
+// Evet butonuna basıldığında
 evetBtn.addEventListener('click', () => {
-    // 1. Mevcut her şeyi (soru ve butonlar) ekranı temizlemek için gizle
-    container.style.display = 'none';
-    hayirBtn.style.display = 'none';
-
-    // 2. Arka planı videodaki gibi koyu pembe yap
-    document.body.style.backgroundColor = '#ff4d6d';
-
-    // 3. Ekrana yeni bir büyük yazı ekle
-    const finalMesaj = document.createElement('h1');
-    finalMesaj.innerHTML = "Ben de seni seviyorum! 🥰";
-    finalMesaj.style.color = "white";
-    finalMesaj.style.fontSize = "4rem";
-    finalMesaj.style.textAlign = "center";
-    finalMesaj.style.width = "100%";
+    evetBtn.classList.add('full-screen');
+    evetBtn.innerText = "EVET! 💖";
     
-    // Yazıyı ekranın tam ortasına yerleştir
-    document.body.appendChild(finalMesaj);
+    setTimeout(() => {
+        anaEkran.classList.add('gizli');
+        sonucEkran.classList.remove('gizli');
+        evetBtn.classList.remove('full-screen');
+    }, 1000);
 });
