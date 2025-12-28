@@ -4,48 +4,66 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
-    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f7; /* Hafif gri-beyaz arka plan */
+    font-family: 'Inter', -apple-system, sans-serif;
     overflow: hidden;
 }
 
 .container {
     text-align: center;
     background: white;
-    padding: 50px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+    padding: 60px 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    transition: all 0.5s ease;
 }
 
-.gizli { display: none; }
+h1 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
 
-.butonlar {
-    margin-top: 20px;
+.buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
-    position: relative;
+    min-height: 60px;
 }
 
 button {
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 12px 35px;
+    font-size: 1.1rem;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.2s;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-#evetBtn { background-color: #4CAF50; color: white; }
-#hayirBtn { background-color: #f44336; color: white; position: relative; }
+#evetBtn {
+    background-color: #4cd964; /* Videodaki yeşil */
+    color: white;
+}
 
-/* Evet butonu ekranı kapladığında görünecek stil */
-.full-screen {
+#hayirBtn {
+    background-color: #ff3b30; /* Videodaki kırmızı */
+    color: white;
+    position: absolute; /* Kaçması için şart */
+}
+
+/* Final ekranı için stil */
+.final-screen {
     position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    z-index: 999;
-    font-size: 5rem !important;
-    border-radius: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ff2d55; /* Tam pembe ekran */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 1000;
 }
